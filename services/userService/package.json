@@ -4,17 +4,25 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon server.js",
+    "dev": "nodemon",
+    "prisma:generate": "prisma generate --config prisma7.config.ts",
+    "prisma:push": "prisma db push --config prisma7.config.ts",
     "test": "node --check server.js"
   },
-  "keywords": [], 
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "^7.10.0",
     "dotenv": "^16.6.1",
     "express": "^5.2.1",
+    "nodemon": "^3.1.14",
     "pg": "^8.23.0"
+  },
+  "devDependencies": {
+    "prisma": "^7.10.0"
   }
 }

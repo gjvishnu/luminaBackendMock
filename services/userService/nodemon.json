@@ -1,0 +1,15 @@
+{
+  "watch": [
+    "server.js",
+    "src",
+    "prisma",
+    ".env"
+  ],
+  "ext": "js,json,prisma,env",
+  "ignore": [
+    "generated",
+    "node_modules"
+  ],
+  "exec": "node server.js",
+  "signal": "SIGTERM"
+}

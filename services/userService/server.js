@@ -3,11 +3,22 @@ require('./src/config/env');
 const express = require('express');
 const { ensureDatabaseExists } = require('./src/database/createDb');
 const { deployMigrations } = require('./src/database/migrate');
+const { seedAdminUser } = require('./src/database/seedAdmin');
+const authRoutes = require('./src/routes/authRoutes');
+const userRoutes = require('./src/routes/userRoutes');
+const {
+  notFoundMiddleware,
+  errorMiddleware,
+} = require('./src/middleware/errorMiddleware');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use('/', authRoutes);
+app.use('/', userRoutes);
+app.use(notFoundMiddleware);
+app.use(errorMiddleware);
 
 async function start() {
   try {
@@ -19,6 +30,7 @@ async function start() {
     const prisma = require('./src/config/prisma');
     await prisma.$connect();
     console.log('Prisma Client connected to the application database.');
+    await seedAdminUser(prisma);
 
     const server = app.listen(PORT, () => {
       console.log(`userService is running on port ${PORT}`);
