@@ -6,6 +6,7 @@ const { deployMigrations } = require('./src/database/migrate');
 const { seedAdminUser } = require('./src/database/seedAdmin');
 const authRoutes = require('./src/routes/authRoutes');
 const userRoutes = require('./src/routes/userRoutes');
+const studentRoutes = require('./src/routes/studentRoutes');
 const {
   notFoundMiddleware,
   errorMiddleware,
@@ -17,6 +18,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use('/', authRoutes);
 app.use('/', userRoutes);
+app.use('/', studentRoutes);
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
 

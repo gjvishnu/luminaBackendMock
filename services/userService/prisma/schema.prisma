@@ -28,4 +28,31 @@ model User {
   regno     String?  @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  students Student[]
+}
+
+model Student {
+  id                 String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name               String    @db.VarChar(150)
+  resume             String?   @db.Text
+  email              String    @db.VarChar(255)
+  phone              String?   @db.VarChar(20)
+  dateOfBirth        DateTime? @db.Date @map("date_of_birth")
+  location           String?   @db.VarChar(150)
+  registrationNumber String    @db.VarChar(50) @map("registration_number")
+  department         String?   @db.Uuid
+  program            String?   @db.VarChar(150)
+  batch              Int?
+  semester           Int?
+  cgpa               Decimal?  @db.Decimal(4, 2)
+  backlogs           Int       @default(0)
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @default(now()) @updatedAt @map("updated_at")
+  userId             Int?      @map("user_id")
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@map("students")
 }

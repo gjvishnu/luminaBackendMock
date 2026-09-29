@@ -88,10 +88,43 @@ function requireAdmin(req, res, next) {
   return next();
 }
 
+function requireStudent(req, res, next) {
+  if (req.auth?.role !== 'STUDENT') {
+    return res.status(403).json({
+      message: 'Student access required.',
+    });
+  }
+
+  return next();
+}
+
+function requireStaff(req, res, next) {
+  if (!['ADMIN', 'PLACEMENT_OFFICER'].includes(req.auth?.role)) {
+    return res.status(403).json({
+      message: 'Admin or placement officer access required.',
+    });
+  }
+
+  return next();
+}
+
+function requireStudentOrStaff(req, res, next) {
+  if (!['STUDENT', 'ADMIN', 'PLACEMENT_OFFICER'].includes(req.auth?.role)) {
+    return res.status(403).json({
+      message: 'Student or staff access required.',
+    });
+  }
+
+  return next();
+}
+
 module.exports = {
   parseCookies,
   getAccessToken,
   requireAuth,
   requireCookieAuth,
   requireAdmin,
+  requireStudent,
+  requireStaff,
+  requireStudentOrStaff,
 };
