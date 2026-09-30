@@ -67,6 +67,8 @@ DB_USER=your_postgres_user
 DB_PASSWORD=your_postgres_password
 DATABASE_URL="postgresql://your_postgres_user:your_postgres_password@localhost:5432/luminaCore?schema=public"
 AUTH_TOKEN_SECRET=use-a-random-secret-with-at-least-32-characters
+# Comma-separated browser origins allowed to call this API.
+CORS_ORIGIN=http://localhost:5173
 ```
 
 Generate a token secret with:

@@ -7,6 +7,7 @@ const { seedAdminUser } = require('./src/database/seedAdmin');
 const authRoutes = require('./src/routes/authRoutes');
 const userRoutes = require('./src/routes/userRoutes');
 const studentRoutes = require('./src/routes/studentRoutes');
+const { corsMiddleware } = require('./src/middleware/corsMiddleware');
 const {
   notFoundMiddleware,
   errorMiddleware,
@@ -15,6 +16,7 @@ const {
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(corsMiddleware);
 app.use(express.json());
 app.use('/', authRoutes);
 app.use('/', userRoutes);
