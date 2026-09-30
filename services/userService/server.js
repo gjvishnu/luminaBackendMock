@@ -1,13 +1,13 @@
 require('./src/config/env');
 
 const express = require('express');
+const cors = require('cors');
 const { ensureDatabaseExists } = require('./src/database/createDb');
 const { deployMigrations } = require('./src/database/migrate');
 const { seedAdminUser } = require('./src/database/seedAdmin');
 const authRoutes = require('./src/routes/authRoutes');
 const userRoutes = require('./src/routes/userRoutes');
 const studentRoutes = require('./src/routes/studentRoutes');
-const { corsMiddleware } = require('./src/middleware/corsMiddleware');
 const {
   notFoundMiddleware,
   errorMiddleware,
@@ -16,7 +16,7 @@ const {
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(corsMiddleware);
+app.use(cors());
 app.use(express.json());
 app.use('/', authRoutes);
 app.use('/', userRoutes);
